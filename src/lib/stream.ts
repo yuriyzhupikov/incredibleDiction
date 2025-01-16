@@ -60,10 +60,10 @@ export const createConsoleWriteStream = () => {
   })
 }
 
-export const createFileReadStream = (path: PathLike, options?: BufferEncoding): ReadStream => {
+export const createFileReadStream = (path: PathLike, options?: any): ReadStream => {
   return fs.createReadStream(path, options)
 }
 
-export const createFileWriteStream = (path: PathLike, options?: BufferEncoding): WriteStream => {
+export const createFileWriteStream = (path: PathLike, options?: any): WriteStream => {
   return fs.createWriteStream(path, options)
 }

@@ -31,7 +31,8 @@
       "@infrastructure/config/*": ["infrastructure/configs/*"],
       "@lib/*": ["lib/*"],
       "@test/*": ["tests/*"]
-    }
+    },
+    "typeRoots": ["./node_modules/@types", "./@types"]
   },
   "include": [
     "src"

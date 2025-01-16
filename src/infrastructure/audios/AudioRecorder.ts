@@ -1,13 +1,13 @@
-import record from 'node-record-lpcm16'
-
 import { createFileWriteStream } from '@lib/stream'
+
+import { record } from 'node-record-lpcm16'
 
 export class AudioRecorder {
   async recordAudio(outputFile: string, duration: number): Promise<void> {
     console.log(`Запись началась: ${duration} секунд`)
     const file = createFileWriteStream(outputFile, { encoding: 'binary' })
 
-    const recording = record.record({ sampleRate: 16000 }).stream().pipe(file)
+    const recording = record({ sampleRate: 16000 }).stream().pipe(file)
 
     await new Promise((resolve) =>
       setTimeout(() => {
