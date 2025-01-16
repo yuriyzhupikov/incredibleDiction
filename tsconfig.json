@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json.schemastore.org/tsconfig",
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "esnext",
+    "strict": true,
+    "noEmitOnError": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "pretty": true,
+    "outDir": "build",
+    "rootDir": "src",
+    "sourceMap": true,
+    "baseUrl": "src",
+    "paths": {
+      "@entity/*": ["domain/entities/*"],
+      "@service/*": ["domain/services/*"],
+      "@value-object/*": ["domain/value-objects/*"],
+      "@repository/*": ["domain/repositories/*"],
+      "@application/usecase/*": ["application/usecases/*"],
+      "@application/service/*": ["application/services/*"],
+      "@infrastructure/repository/*": ["infrastructure/repositories/*"],
+      "@infrastructure/audio/*": ["infrastructure/audios/*"],
+      "@type/*": ["types/*"],
+      "@infrastructure/config/*": ["infrastructure/configs/*"],
+      "@lib/*": ["lib/*"],
+      "@test/*": ["tests/*"]
+    }
+  },
+  "include": [
+    "src"
+  ],
+  "exclude": [
+    "node_modules",
+    "shortcuts",
+    "build"
+  ]
+}

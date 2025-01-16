@@ -1,0 +1,9 @@
+/.git
+/.idea
+/tests
+/dist
+/build
+/node_modules
+parser.config.js
+tsconfig-paths-bootstrap.js
+.prettierrc.js
