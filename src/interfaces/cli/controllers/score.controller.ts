@@ -3,9 +3,7 @@ import { AnalyzeSpeechUseCase } from '@application/usecase/analyze-speech.usecas
 import { CLIInput } from '../cli.input'
 import { CLIOutput } from '../cli.output'
 
-/**
- * Controller to evaluate speech accuracy.
- */
+/** Controller to evaluate speech accuracy. */
 export class ScoreController {
   /**
    * @param {AnalyzeSpeechUseCase} analyzeSpeechUseCase - The use case for analyzing speech.
@@ -20,6 +18,7 @@ export class ScoreController {
 
   /**
    * Handles the scoring workflow.
+   *
    * @returns {Promise<void>} - Resolves when the process completes.
    */
   async handle(): Promise<void> {

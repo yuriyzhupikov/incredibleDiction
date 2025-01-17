@@ -1,7 +1,12 @@
 import { exec } from 'child_process'
 import { promisify } from 'util'
 
+import DynamicTimeWarping from 'dynamic-time-warping'
+
+import { readFile } from '@lib/file'
+
 import { record } from 'node-record-lpcm16'
+import WavDecoder from 'wav-decoder'
 
 const execAsync = promisify(exec)
 
@@ -17,7 +22,6 @@ export const recordAudio = (options?: Parameters<typeof record>[0]): ReturnType<
 }
 
 /**
- *
  * @param samples
  * @param chunkSize
  */
@@ -33,7 +37,6 @@ export const normalize = (samples, chunkSize) => {
 }
 
 /**
- *
  * @param samples
  * @param windowSize
  */
@@ -62,7 +65,6 @@ export const smoothOptimized = (samples, windowSize) => {
 }
 
 /**
- *
  * @param samples
  * @param windowSize
  */
@@ -85,4 +87,24 @@ function smooth(samples, windowSize) {
   }
 
   return smoothed
+}
+
+/**
+ * @param userSamples
+ * @param referenceSamples
+ * @returns {number}
+ */
+export const getDistanceAudio = (userSamples: Float32Array<number>, referenceSamples: Float32Array<number>): number => {
+  const dtw = new DynamicTimeWarping<Float32Array<number>>(referenceSamples, userSamples, (a, b) => Math.abs(a - b))
+  return dtw.getDistance()
+}
+
+/**
+ * @param filePath
+ * @returns {Promise<Float32Array<number>>}
+ */
+export const decodeWav = async (filePath: string): Promise<Float32Array<number>> => {
+  const buffer = (await readFile(filePath, 'binary')) as Buffer
+  const decoded = await WavDecoder.decode(buffer)
+  return decoded.channelData[0] // моно
 }

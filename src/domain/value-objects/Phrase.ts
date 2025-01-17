@@ -1,6 +1,4 @@
-/**
- * Class representing a phrase.
- */
+/** Class representing a phrase. */
 export class Phrase {
   /**
    * Creates an instance of Phrase.

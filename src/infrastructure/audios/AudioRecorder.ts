@@ -1,12 +1,11 @@
 import { recordAudio } from '@lib/audio-processing'
 import { createFileWriteStream } from '@lib/stream'
 
-/**
- * Manages audio recording tasks.
- */
+/** Manages audio recording tasks. */
 export class AudioRecorder {
   /**
    * Records audio and saves it to a file.
+   *
    * @param {string} outputFile - The output file path where audio will be saved.
    * @param {number} duration - The duration of the recording in seconds.
    * @returns {Promise<void>} - Resolves when the recording is complete.

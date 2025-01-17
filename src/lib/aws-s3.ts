@@ -6,6 +6,7 @@ const s3 = new S3Client({ region: process.env.AWS_REGION || 'us-east-1' })
  * @param bucketName
  * @param key
  * @param body
+ * @returns
  */
 export const uploadToS3 = async (bucketName: string, key: string, body: Buffer): Promise<string> => {
   await s3.send(new PutObjectCommand({ Bucket: bucketName, Key: key, Body: body }))

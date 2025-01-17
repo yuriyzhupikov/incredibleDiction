@@ -3,6 +3,7 @@ import path from 'path'
 
 /**
  * Joins multiple path segments into a single path.
+ *
  * @param {...string} paths - Path segments to join.
  * @returns {string}
  */
@@ -12,18 +13,20 @@ export const getPathFile = (...paths: string[]) => {
 
 /**
  * Reads the content of a file.
+ *
  * @param {string} filePath - The file path.
- * @param {BufferEncoding} [encoding='utf-8'] - The encoding of the file.
+ * @param {BufferEncoding} [encoding='utf-8'] - The encoding of the file. Default is `'utf-8'`
  * @returns {Promise<string>}
  */
-export const readFile = async (filePath: string, encoding: BufferEncoding = 'utf-8'): Promise<string> => {
+export const readFile = async (filePath: string, encoding: BufferEncoding = 'utf-8'): Promise<string | Buffer> => {
   return await fsPromises.readFile(filePath, encoding)
 }
 
 /**
  * Writes data to a file, creating directories if necessary.
+ *
  * @param {string} filePath - The file path.
- * @param {string|Buffer} data - The data to write.
+ * @param {string | Buffer} data - The data to write.
  * @returns {Promise<void>}
  */
 export const writeFile = async (filePath: string, data: string | Buffer): Promise<void> => {
@@ -33,6 +36,7 @@ export const writeFile = async (filePath: string, data: string | Buffer): Promis
 
 /**
  * Deletes a file if it exists.
+ *
  * @param {string} filePath - The file path.
  * @returns {Promise<void>}
  */
@@ -48,6 +52,7 @@ export const deleteFile = async (filePath: string): Promise<void> => {
 
 /**
  * Checks if a file exists.
+ *
  * @param {string} filePath - The file path.
  * @returns {Promise<boolean>}
  */

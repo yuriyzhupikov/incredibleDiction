@@ -1,3 +1,6 @@
+import { RecordController } from '@controller/record.controller'
+import { ScoreController } from '@controller/score.controller'
+
 import { ScoringDomainService } from '@service/ScoringDomainService'
 
 import { ScoringService } from '@application/service/scoring.service'
@@ -7,8 +10,6 @@ import { AudioRecorder } from '@infrastructure/audio/AudioRecorder'
 
 import { CLIInput } from './cli.input'
 import { CLIOutput } from './cli.output'
-import { RecordController } from './controllers/record.controller'
-import { ScoreController } from './controllers/score.controller'
 
 // Configure dependencies
 const cliInput = new CLIInput()
@@ -23,43 +24,41 @@ const analyzeSpeechUseCase = new AnalyzeSpeechUseCase(speechService, scoringServ
 const recordController = new RecordController(new AudioRecorder(), cliInput, cliOutput)
 const scoreController = new ScoreController(analyzeSpeechUseCase, cliInput, cliOutput)
 
-// Main CLI method
-;(async () => {
-  console.log('Welcome to the CLI application!')
-  console.log('Choose a command:')
-  console.log('Record audio: record')
-  console.log('Analyze speech accuracy: analyze')
+// ;(async () => {
+//   console.log('Welcome to the CLI application!')
+//   console.log('Choose a command:')
+//   console.log('Record audio: record')
+//   console.log('Analyze speech accuracy: analyze')
+//
+//   const args = process.argv.slice(2)
+//   switch (args[0]) {
+//     case 'record':
+//       await recordController.handle()
+//       break
+//     case 'analyze':
+//       await scoreController.handle()
+//       break
+//     default:
+//       console.log('❌ Unknown command. Use record or analyze.')
+//   }
+// })()
 
-  const args = process.argv.slice(2)
-  switch (args[0]) {
-    case 'record':
+;(async () => {
+  console.log('Welcome to the IncredibleDiction CLI app!')
+  console.log('Choose command:')
+  console.log('1 - Record audio')
+  console.log('2 - Evaluate the accuracy of speech')
+
+  const choice = cliInput.prompt('Enter the command number:')
+
+  switch (choice) {
+    case '1':
       await recordController.handle()
       break
-    case 'analyze':
+    case '2':
       await scoreController.handle()
       break
     default:
-      console.log('❌ Unknown command. Use record or analyze.')
+      cliOutput.error('❌ Unknown command.')
   }
-
-  // // Главный метод CLI
-  // ;(async () => {
-  //   console.log('Добро пожаловать в приложение CLI!')
-  //   console.log('Выберите команду:')
-  //   console.log('1 - Записать аудио')
-  //   console.log('2 - Оценить точность речи')
-  //
-  //   const choice = cliInput.prompt('Введите номер команды:')
-  //
-  //   switch (choice) {
-  //     case '1':
-  //       await recordController.handle()
-  //       break
-  //     case '2':
-  //       await scoreController.handle()
-  //       break
-  //     default:
-  //       cliOutput.error('Неизвестная команда.')
-  //   }
-  // })()
 })()

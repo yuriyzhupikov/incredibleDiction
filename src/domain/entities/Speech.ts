@@ -1,12 +1,9 @@
 import { AudioFile } from '@value-object/AudioFile'
 import { Phrase } from '@value-object/Phrase'
 
-/**
- * The class for representing speech.
- */
+/** The class for representing speech. */
 export class Speech {
   /**
-   *
    * @param {string} id The unique identifier of the speech.
    * @param {AudioFile} audio The audio file as a Value Object.
    * @param {Phrase} [text] Text representation (may be missing).

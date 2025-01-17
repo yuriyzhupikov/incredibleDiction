@@ -1,6 +1,4 @@
-/**
- * Class representing a score.
- */
+/** Class representing a score. */
 export class Score {
   /**
    * Creates an instance of Score.
@@ -9,8 +7,8 @@ export class Score {
    * @throws {Error} Throws an error if the score is not between 0 and 100.
    */
   constructor(private readonly value: number) {
-    if (value < 0 || value > 100) {
-      throw new Error('Score must be between 0 and 100')
+    if (value < 0) {
+      throw new Error('Score must be than more 0')
     }
   }
 

@@ -3,9 +3,7 @@ import { AudioRecorder } from '@infrastructure/audio/AudioRecorder'
 import { CLIInput } from '../cli.input'
 import { CLIOutput } from '../cli.output'
 
-/**
- * Controller to manage audio recording.
- */
+/** Controller to manage audio recording. */
 export class RecordController {
   /**
    * @param {AudioRecorder} audioRecorder - The audio recorder instance.
@@ -20,6 +18,7 @@ export class RecordController {
 
   /**
    * Handles the recording workflow.
+   *
    * @returns {Promise<void>} - Resolves when the recording process completes.
    */
   async handle(): Promise<void> {

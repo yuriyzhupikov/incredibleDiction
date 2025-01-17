@@ -21,6 +21,7 @@
     "paths": {
       "@entity/*": ["domain/entities/*"],
       "@service/*": ["domain/services/*"],
+      "@controller/*": ["interfaces/cli/controllers/*"],
       "@value-object/*": ["domain/value-objects/*"],
       "@repository/*": ["domain/repositories/*"],
       "@application/usecase/*": ["application/usecases/*"],
