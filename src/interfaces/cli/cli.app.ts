@@ -10,7 +10,7 @@ import { CLIOutput } from './cli.output'
 import { RecordController } from './controllers/record.controller'
 import { ScoreController } from './controllers/score.controller'
 
-// Конфигурируем зависимости
+// Configure dependencies
 const cliInput = new CLIInput()
 const cliOutput = new CLIOutput()
 
@@ -19,16 +19,16 @@ const scoringDomainService = new ScoringDomainService()
 const scoringService = new ScoringService(scoringDomainService)
 const analyzeSpeechUseCase = new AnalyzeSpeechUseCase(speechService, scoringService)
 
-// Подключаем контроллеры
+// Initialize controllers
 const recordController = new RecordController(new AudioRecorder(), cliInput, cliOutput)
 const scoreController = new ScoreController(analyzeSpeechUseCase, cliInput, cliOutput)
 
-// Главный метод CLI
+// Main CLI method
 ;(async () => {
-  console.log('Добро пожаловать в приложение CLI!')
-  console.log('Выберите команду:')
-  console.log('Записать аудио: record')
-  console.log('Оценить точность речи: analyze')
+  console.log('Welcome to the CLI application!')
+  console.log('Choose a command:')
+  console.log('Record audio: record')
+  console.log('Analyze speech accuracy: analyze')
 
   const args = process.argv.slice(2)
   switch (args[0]) {
@@ -39,7 +39,7 @@ const scoreController = new ScoreController(analyzeSpeechUseCase, cliInput, cliO
       await scoreController.handle()
       break
     default:
-      console.log('❌ Неизвестная команда. Используйте record или analyze.')
+      console.log('❌ Unknown command. Use record or analyze.')
   }
 
   // // Главный метод CLI

@@ -3,10 +3,12 @@ import { Readable, Writable, Duplex } from 'node:stream'
 import ffmpeg from 'fluent-ffmpeg'
 
 /**
- * @param root0
- * @param root0.inputStream
- * @param root0.transformStream
- * @param root0.outputStream
+ * Processes an audio stream and applies transformations to visualize audio data.
+ * @param {Object} params
+ * @param {Readable} params.inputStream - The input audio stream.
+ * @param {Duplex} params.transformStream - The stream to transform audio data.
+ * @param {Writable} params.outputStream - The output stream to write transformed data.
+ * @returns {Promise<void>}
  */
 export const visualizeAudio = ({
   inputStream,
@@ -21,12 +23,10 @@ export const visualizeAudio = ({
     ffmpeg()
       .input(inputStream)
       .inputFormat('wav')
-      .format('f32le') // format PCM 32-bit float
-      .audioChannels(1) // mono
+      .format('f32le')
+      .audioChannels(1)
       .audioFrequency(44100)
-      // .audioFilters('afftdn=nf=-45')
-      // .audioFilters('anoisesuppress=detections=0.3')
-      .on('error', (err) => reject(err))
+      .on('error', reject)
       .on('end', () => {
         outputStream.end()
         resolve()

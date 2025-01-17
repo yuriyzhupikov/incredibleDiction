@@ -3,13 +3,12 @@ import { SpeechService } from '@application/service/speech-analysis.service'
 import { AnalysisResult } from '@entity/AnalysisResult'
 
 /**
- *
+ * Use case for analyzing speech and calculating accuracy scores.
  */
 export class AnalyzeSpeechUseCase {
   /**
-   *
-   * @param speechService
-   * @param scoringService
+   * @param {SpeechService} speechService - Service for speech analysis.
+   * @param {ScoringService} scoringService - Service for calculating scores.
    */
   constructor(
     private readonly speechService: SpeechService,
@@ -17,18 +16,14 @@ export class AnalyzeSpeechUseCase {
   ) {}
 
   /**
-   *
-   * @param audioFilePath
-   * @param referenceText
+   * Executes the speech analysis process.
+   * @param {string} audioFilePath - The path to the audio file.
+   * @param {string} referenceText - The reference text for comparison.
+   * @returns {Promise<AnalysisResult>} - The result of the speech analysis.
    */
   async execute(audioFilePath: string, referenceText: string): Promise<AnalysisResult> {
-    // 1. Анализируем аудио
     const analyzedText = await this.speechService.analyzeAudio(audioFilePath)
-
-    // 2. Считаем очки
     const score = this.scoringService.calculateScore(analyzedText, referenceText)
-
-    // 3. Возвращаем результат анализа
     return new AnalysisResult(audioFilePath, referenceText, analyzedText, score)
   }
 }

@@ -2,12 +2,13 @@ import { amplitudeScreenTransformStream, createConsoleWriteStream, createFileRea
 import { visualizeAudio } from '@lib/visualize'
 
 /**
- *
+ * Provides functionality for audio visualization.
  */
 export class AudioVisualizer {
   /**
-   *
-   * @param audioFilePath
+   * Displays the waveform of an audio file in the console.
+   * @param {string} audioFilePath - The path to the audio file.
+   * @returns {Promise<void>} - Resolves when visualization is complete.
    */
   async displayWaveform(audioFilePath: string): Promise<void> {
     const inputStream = createFileReadStream(audioFilePath)

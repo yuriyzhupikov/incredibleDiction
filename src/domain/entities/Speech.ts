@@ -2,40 +2,43 @@ import { AudioFile } from '@value-object/AudioFile'
 import { Phrase } from '@value-object/Phrase'
 
 /**
- *
+ * The class for representing speech.
  */
 export class Speech {
   /**
    *
-   * @param id
-   * @param audio
-   * @param text
+   * @param {string} id The unique identifier of the speech.
+   * @param {AudioFile} audio The audio file as a Value Object.
+   * @param {Phrase} [text] Text representation (may be missing).
    */
   constructor(
-    private readonly id: string, // Уникальный идентификатор речи
-    private readonly audio: AudioFile, // Аудиофайл как Value Object
-    private readonly text?: Phrase, // Текстовое представление (может отсутствовать)
+    private readonly id: string,
+    private readonly audio: AudioFile,
+    private readonly text?: Phrase,
   ) {}
 
-  // Получение текста речи
   /**
+   * Getting the text of speech.
    *
+   * @returns {Phrase | undefined} The text representation of speech, or undefined if there is no text.
    */
   getText(): Phrase | undefined {
     return this.text
   }
 
-  // Получение аудио
   /**
+   * Getting the audio.
    *
+   * @returns {AudioFile} The audio file of the speech.
    */
   getAudio(): AudioFile {
     return this.audio
   }
 
-  // Получение идентификатора
   /**
+   * Getting the ID.
    *
+   * @returns {string} The unique identifier of the speech.
    */
   getId(): string {
     return this.id

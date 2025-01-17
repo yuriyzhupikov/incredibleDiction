@@ -1,19 +1,23 @@
+/**
+ * Interface for the audio storage repository.
+ */
 export interface AudioStorageRepository {
   /**
-   * Сохраняет аудиофайл.
+   * Saves an audio file.
    *
-   * @param userId - Идентификатор пользователя.
-   * @param fileName - Имя файла.
-   * @param fileBuffer - Данные файла.
-   * @returns Путь к сохраненному файлу (или URL в случае облачного хранилища).
+   * @param {string} userId - The user identifier.
+   * @param {string} fileName - The name of the file.
+   * @param {Buffer} fileBuffer - The file data.
+   * @returns {Promise<string>} The path to the saved file (or URL in case of cloud storage).
    */
   save(userId: string, fileName: string, fileBuffer: Buffer): Promise<string>
 
   /**
-   * Удаляет аудиофайл.
+   * Deletes an audio file.
    *
-   * @param userId - Идентификатор пользователя.
-   * @param fileName - Имя файла.
+   * @param {string} userId - The user identifier.
+   * @param {string} fileName - The name of the file.
+   * @returns {Promise<void>}
    */
   delete(userId: string, fileName: string): Promise<void>
 }

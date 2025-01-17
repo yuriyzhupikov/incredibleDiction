@@ -4,14 +4,13 @@ import { CLIInput } from '../cli.input'
 import { CLIOutput } from '../cli.output'
 
 /**
- *
+ * Controller to handle the speech analysis process.
  */
 export class AnalyzeController {
   /**
-   *
-   * @param analyzeSpeechUseCase
-   * @param cliInput
-   * @param cliOutput
+   * @param {AnalyzeSpeechUseCase} analyzeSpeechUseCase - The use case for analyzing speech.
+   * @param {CLIInput} cliInput - CLI input handler.
+   * @param {CLIOutput} cliOutput - CLI output handler.
    */
   constructor(
     private readonly analyzeSpeechUseCase: AnalyzeSpeechUseCase,
@@ -20,25 +19,22 @@ export class AnalyzeController {
   ) {}
 
   /**
-   *
+   * Handles the analysis workflow.
+   * @returns {Promise<void>} - Resolves when the process completes.
    */
   async handle(): Promise<void> {
-    // 1. Запрашиваем у пользователя данные через CLI
-    const audioFilePath = this.cliInput.prompt('Введите путь к аудиофайлу:')
-    const referenceText = this.cliInput.prompt('Введите эталонный текст:')
+    const audioFilePath = this.cliInput.prompt('Enter the path to the audio file:')
+    const referenceText = this.cliInput.prompt('Enter the reference text:')
 
     try {
-      // 2. Вызываем Use Case для анализа речи
       const result = await this.analyzeSpeechUseCase.execute(audioFilePath, referenceText)
 
-      // 3. Выводим результат в консоль
-      this.cliOutput.success('Анализ завершён!')
-      this.cliOutput.info(`Текст из аудио: ${result.getAnalyzedText()}`)
-      this.cliOutput.info(`Эталонный текст: ${result.getReferenceText()}`)
-      this.cliOutput.info(`Баллы за точность: ${result.getScore().getValue()}`)
+      this.cliOutput.success('Analysis completed!')
+      this.cliOutput.info(`Text from audio: ${result.getAnalyzedText()}`)
+      this.cliOutput.info(`Reference text: ${result.getReferenceText()}`)
+      this.cliOutput.info(`Accuracy score: ${result.getScore().getValue()}`)
     } catch (error: Error) {
-      // Обработка ошибок
-      this.cliOutput.error('Ошибка во время анализа речи:')
+      this.cliOutput.error('Error during speech analysis:')
       this.cliOutput.error(error.message)
     }
   }

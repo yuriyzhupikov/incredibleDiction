@@ -1,13 +1,13 @@
 import readlineSync from 'readline-sync'
 
 /**
- *
+ * Handles user input from the console.
  */
 export class CLIInput {
-  // Метод для запроса данных у пользователя
   /**
-   *
-   * @param question
+   * Prompts the user for input.
+   * @param {string} question - The question to display to the user.
+   * @returns {string} - The user's input.
    */
   prompt(question: string): string {
     return readlineSync.question(`${question}\n> `)

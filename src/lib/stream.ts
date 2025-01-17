@@ -2,8 +2,10 @@ import fs, { PathLike, ReadStream, WriteStream } from 'node:fs'
 import { Transform, TransformCallback, Writable } from 'node:stream'
 
 /**
- * @param maxWidth
- * @param maxHeight
+ * Creates a Transform stream for audio amplitude visualization.
+ * @param {number} maxWidth - The maximum width for the visualization.
+ * @param {number} maxHeight - The maximum height for the visualization.
+ * @returns {Transform}
  */
 export const amplitudeScreenTransformStream = (maxWidth: number, maxHeight: number) => {
   let buffer = Buffer.alloc(0)
@@ -13,31 +15,26 @@ export const amplitudeScreenTransformStream = (maxWidth: number, maxHeight: numb
     transform(chunk: any, encoding: BufferEncoding, callback: TransformCallback) {
       buffer = Buffer.concat([buffer, chunk])
 
-      // Обрабатываем только полные семплы (32-бит float = 4 байта)
       while (buffer.length >= 4) {
-        const sample = buffer.readFloatLE(0) // Считываем 1 семпл
+        const sample = buffer.readFloatLE(0)
         buffer = buffer.subarray(4)
 
-        const amplitude = Math.abs(sample) // Нормализуем амплитуду
-        amplitudes.push(amplitude) // Сохраняем амплитуду
+        const amplitude = Math.abs(sample)
+        amplitudes.push(amplitude)
       }
 
       callback()
     },
     flush(callback: TransformCallback) {
-      // Нормализуем данные по ширине экрана
-      const step = Math.ceil(amplitudes.length / maxWidth) // Шаг выборки данных
+      const step = Math.ceil(amplitudes.length / maxWidth)
       const normalizedAmplitudes = []
 
       for (let i = 0; i < amplitudes.length; i += step) {
-        // Берем максимум из группы для сохранения формы волны
         const group = amplitudes.slice(i, i + step)
-        // const avg = group.reduce((sum, next) => sum + next) / group.length
         const max = Math.max(...group)
         normalizedAmplitudes.push(max)
       }
 
-      // Нормализуем данные по высоте экрана
       const maxAmplitude = Math.max(...normalizedAmplitudes) || 1
       const scaledAmplitudes = normalizedAmplitudes.map((amp) => Math.floor((amp / maxAmplitude) * maxHeight))
       const lines = Array.from({ length: maxHeight }, () => Array(maxWidth).fill(' '))
@@ -48,15 +45,16 @@ export const amplitudeScreenTransformStream = (maxWidth: number, maxHeight: numb
           lines[maxHeight - y - 1][x] = '█'
         }
       }
-      const output = lines.map((line) => line.join('')).join('\n')
 
+      const output = lines.map((line) => line.join('')).join('\n')
       callback(null, output + '\n')
     },
   })
 }
 
 /**
- *
+ * Creates a Writable stream for writing to the console.
+ * @returns {Writable}
  */
 export const createConsoleWriteStream = () => {
   return new Writable({
@@ -68,17 +66,20 @@ export const createConsoleWriteStream = () => {
 }
 
 /**
- * @param path
- * @param options
+ * Creates a Readable stream for reading from a file.
+ * @param {PathLike} path - The file path.
+ * @param {Object} [options] - Options for the Readable stream.
+ * @returns {ReadStream}
  */
 export const createFileReadStream = (path: PathLike, options?: any): ReadStream => {
   return fs.createReadStream(path, options)
 }
 
 /**
- *
- * @param path
- * @param options
+ * Creates a Writable stream for writing to a file.
+ * @param {PathLike} path - The file path.
+ * @param {Object} [options] - Options for the Writable stream.
+ * @returns {WriteStream}
  */
 export const createFileWriteStream = (path: PathLike, options?: any): WriteStream => {
   return fs.createWriteStream(path, options)

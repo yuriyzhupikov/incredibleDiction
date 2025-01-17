@@ -2,50 +2,54 @@ import { Phrase } from '@value-object/Phrase'
 import { Score } from '@value-object/Score'
 
 /**
- *
+ * Class representing the result of an analysis.
  */
 export class AnalysisResult {
   /**
    *
-   * @param speechId
-   * @param referenceText
-   * @param analyzedText
-   * @param score
+   * @param {string} speechId ID of the analyzed speech.
+   * @param {Phrase} referenceText The reference text.
+   * @param {Phrase} analyzedText The analyzed text.
+   * @param {Score} score The score as a Value Object.
    */
   constructor(
-    private readonly speechId: string, // ID анализируемой речи
-    private readonly referenceText: Phrase, // Эталонный текст
-    private readonly analyzedText: Phrase, // Проанализированный текст
-    private readonly score: Score, // Балл как Value Object
+    private readonly speechId: string,
+    private readonly referenceText: Phrase,
+    private readonly analyzedText: Phrase,
+    private readonly score: Score,
   ) {}
 
-  // Получение идентификатора речи
   /**
+   * Retrieves the ID of the analyzed speech.
    *
+   * @returns {string} The ID of the analyzed speech.
    */
   getSpeechId(): string {
     return this.speechId
   }
 
-  // Получение эталонного текста
   /**
+   * Retrieves the reference text.
    *
+   * @returns {Phrase} The reference text.
    */
   getReferenceText(): Phrase {
     return this.referenceText
   }
 
-  // Получение текста пользователя
   /**
+   * Retrieves the analyzed text.
    *
+   * @returns {Phrase} The analyzed text.
    */
   getAnalyzedText(): Phrase {
     return this.analyzedText
   }
 
-  // Получение баллов
   /**
+   * Retrieves the analysis score.
    *
+   * @returns {Score} The analysis score.
    */
   getScore(): Score {
     return this.score

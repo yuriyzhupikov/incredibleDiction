@@ -1,32 +1,44 @@
-import fs from 'fs/promises'
+import fsPromises from 'fs/promises'
 import path from 'path'
 
-/** @param {...any} paths */
+/**
+ * Joins multiple path segments into a single path.
+ * @param {...string} paths - Path segments to join.
+ * @returns {string}
+ */
 export const getPathFile = (...paths: string[]) => {
   return path.join(...paths)
 }
 
 /**
- * @param filePath
- * @param encoding
+ * Reads the content of a file.
+ * @param {string} filePath - The file path.
+ * @param {BufferEncoding} [encoding='utf-8'] - The encoding of the file.
+ * @returns {Promise<string>}
  */
 export const readFile = async (filePath: string, encoding: BufferEncoding = 'utf-8'): Promise<string> => {
-  return await fs.readFile(filePath, encoding)
+  return await fsPromises.readFile(filePath, encoding)
 }
 
 /**
- * @param filePath
- * @param data
+ * Writes data to a file, creating directories if necessary.
+ * @param {string} filePath - The file path.
+ * @param {string|Buffer} data - The data to write.
+ * @returns {Promise<void>}
  */
 export const writeFile = async (filePath: string, data: string | Buffer): Promise<void> => {
-  await fs.mkdir(path.dirname(filePath), { recursive: true })
-  await fs.writeFile(filePath, data)
+  await fsPromises.mkdir(path.dirname(filePath), { recursive: true })
+  await fsPromises.writeFile(filePath, data)
 }
 
-/** @param filePath */
+/**
+ * Deletes a file if it exists.
+ * @param {string} filePath - The file path.
+ * @returns {Promise<void>}
+ */
 export const deleteFile = async (filePath: string): Promise<void> => {
   try {
-    await fs.unlink(filePath)
+    await fsPromises.unlink(filePath)
   } catch (error) {
     if ((error as NodeJS.ErrnoException).code !== 'ENOENT') {
       throw error
@@ -34,10 +46,14 @@ export const deleteFile = async (filePath: string): Promise<void> => {
   }
 }
 
-/** @param filePath */
+/**
+ * Checks if a file exists.
+ * @param {string} filePath - The file path.
+ * @returns {Promise<boolean>}
+ */
 export const fileExists = async (filePath: string): Promise<boolean> => {
   try {
-    await fs.access(filePath)
+    await fsPromises.access(filePath)
     return true
   } catch {
     return false

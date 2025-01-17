@@ -1,19 +1,17 @@
-import { readFile } from '@lib/file'
-
 /**
- *
+ * Handles audio processing tasks.
  */
 export class AudioProcessor {
   /**
-   *
-   * @param filePath
+   * Converts audio file to text.
+   * @param {string} filePath - The path to the audio file.
+   * @returns {Promise<string>} - The converted text from the audio.
    */
   async convertAudioToText(filePath: string): Promise<string> {
-    // Пример реализации: эмуляция работы конвертации
     const file = await readFile(filePath)
-    console.log('Аудиофайл обработан:', filePath)
+    console.log('Audio file processed:', filePath)
 
-    // Возвращаем примерный текст (в реальном проекте подключить TTS-библиотеку)
-    return 'Пример текста, полученного из аудио'
+    // Returns example text (integrate a TTS library in a real project)
+    return 'Example text derived from audio'
   }
 }

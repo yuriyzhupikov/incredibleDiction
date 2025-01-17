@@ -4,14 +4,13 @@ import { CLIInput } from '../cli.input'
 import { CLIOutput } from '../cli.output'
 
 /**
- *
+ * Controller to manage audio recording.
  */
 export class RecordController {
   /**
-   *
-   * @param audioRecorder
-   * @param cliInput
-   * @param cliOutput
+   * @param {AudioRecorder} audioRecorder - The audio recorder instance.
+   * @param {CLIInput} cliInput - CLI input handler.
+   * @param {CLIOutput} cliOutput - CLI output handler.
    */
   constructor(
     private readonly audioRecorder: AudioRecorder,
@@ -20,30 +19,25 @@ export class RecordController {
   ) {}
 
   /**
-   *
+   * Handles the recording workflow.
+   * @returns {Promise<void>} - Resolves when the recording process completes.
    */
   async handle(): Promise<void> {
     try {
-      // 1. Получаем путь для сохранения аудиофайла
-      const outputFile = this.cliInput.prompt('Введите путь для сохранения аудиофайла (например, ./audio/output.wav):')
-
-      // 2. Получаем длительность записи от пользователя
-      const durationStr = this.cliInput.prompt('Введите длительность записи (в секундах):')
+      const outputFile = this.cliInput.prompt('Enter the path to save the audio file (e.g., ./audio/output.wav):')
+      const durationStr = this.cliInput.prompt('Enter the recording duration (in seconds):')
       const duration = parseInt(durationStr, 10)
 
       if (isNaN(duration) || duration <= 0) {
-        throw new Error('Неверное значение для длительности записи.')
+        throw new Error('Invalid value for recording duration.')
       }
 
-      // 3. Запускаем процесс записи
-      this.cliOutput.info('Запись началась...')
+      this.cliOutput.info('Recording started...')
       await this.audioRecorder.recordAudio(outputFile, duration)
 
-      // 4. Уведомляем об успешной записи
-      this.cliOutput.success(`Запись успешно завершена и сохранена в ${outputFile}`)
+      this.cliOutput.success(`Recording successfully completed and saved to ${outputFile}`)
     } catch (error: Error) {
-      // Обработка ошибок
-      this.cliOutput.error('Произошла ошибка во время записи аудио:')
+      this.cliOutput.error('An error occurred during audio recording:')
       this.cliOutput.error(error.message)
     }
   }
