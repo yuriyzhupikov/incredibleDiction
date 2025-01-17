@@ -1,7 +1,17 @@
 import { Phrase } from '@value-object/Phrase'
 import { Score } from '@value-object/Score'
 
+/**
+ *
+ */
 export class AnalysisResult {
+  /**
+   *
+   * @param speechId
+   * @param referenceText
+   * @param analyzedText
+   * @param score
+   */
   constructor(
     private readonly speechId: string, // ID анализируемой речи
     private readonly referenceText: Phrase, // Эталонный текст
@@ -10,21 +20,33 @@ export class AnalysisResult {
   ) {}
 
   // Получение идентификатора речи
+  /**
+   *
+   */
   getSpeechId(): string {
     return this.speechId
   }
 
   // Получение эталонного текста
+  /**
+   *
+   */
   getReferenceText(): Phrase {
     return this.referenceText
   }
 
   // Получение текста пользователя
+  /**
+   *
+   */
   getAnalyzedText(): Phrase {
     return this.analyzedText
   }
 
   // Получение баллов
+  /**
+   *
+   */
   getScore(): Score {
     return this.score
   }

@@ -3,13 +3,25 @@ import { AnalyzeSpeechUseCase } from '@application/usecase/analyze-speech.usecas
 import { CLIInput } from '../cli.input'
 import { CLIOutput } from '../cli.output'
 
+/**
+ *
+ */
 export class ScoreController {
+  /**
+   *
+   * @param analyzeSpeechUseCase
+   * @param cliInput
+   * @param cliOutput
+   */
   constructor(
     private readonly analyzeSpeechUseCase: AnalyzeSpeechUseCase,
     private readonly cliInput: CLIInput,
     private readonly cliOutput: CLIOutput,
   ) {}
 
+  /**
+   *
+   */
   async handle(): Promise<void> {
     try {
       // 1. Получаем путь к аудиофайлу
@@ -26,7 +38,7 @@ export class ScoreController {
       this.cliOutput.info(`Текст из аудио: ${result.getAnalyzedText()}`)
       this.cliOutput.info(`Эталонный текст: ${result.getReferenceText()}`)
       this.cliOutput.info(`Баллы за точность: ${result.getScore().getValue()}`)
-    } catch (error) {
+    } catch (error: Error) {
       // Обработка ошибок
       this.cliOutput.error('Произошла ошибка во время анализа речи:')
       this.cliOutput.error(error.message)

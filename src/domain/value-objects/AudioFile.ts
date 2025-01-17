@@ -1,4 +1,13 @@
+/**
+ *
+ */
 export class AudioFile {
+  /**
+   *
+   * @param path
+   * @param format
+   * @param size
+   */
   constructor(
     private readonly path: string,
     private readonly format: string,
@@ -9,14 +18,23 @@ export class AudioFile {
     }
   }
 
+  /**
+   *
+   */
   getPath(): string {
     return this.path
   }
 
+  /**
+   *
+   */
   getFormat(): string {
     return this.format
   }
 
+  /**
+   *
+   */
   getSize(): number {
     return this.size
   }

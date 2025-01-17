@@ -1,6 +1,7 @@
 export interface AudioStorageRepository {
   /**
    * Сохраняет аудиофайл.
+   *
    * @param userId - Идентификатор пользователя.
    * @param fileName - Имя файла.
    * @param fileBuffer - Данные файла.
@@ -10,6 +11,7 @@ export interface AudioStorageRepository {
 
   /**
    * Удаляет аудиофайл.
+   *
    * @param userId - Идентификатор пользователя.
    * @param fileName - Имя файла.
    */

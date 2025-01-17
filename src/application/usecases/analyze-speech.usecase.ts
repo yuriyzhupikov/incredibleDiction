@@ -2,12 +2,25 @@ import { ScoringService } from '@application/service/scoring.service'
 import { SpeechService } from '@application/service/speech-analysis.service'
 import { AnalysisResult } from '@entity/AnalysisResult'
 
+/**
+ *
+ */
 export class AnalyzeSpeechUseCase {
+  /**
+   *
+   * @param speechService
+   * @param scoringService
+   */
   constructor(
     private readonly speechService: SpeechService,
     private readonly scoringService: ScoringService,
   ) {}
 
+  /**
+   *
+   * @param audioFilePath
+   * @param referenceText
+   */
   async execute(audioFilePath: string, referenceText: string): Promise<AnalysisResult> {
     // 1. Анализируем аудио
     const analyzedText = await this.speechService.analyzeAudio(audioFilePath)

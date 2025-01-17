@@ -1,8 +1,16 @@
 import { Phrase } from '@value-object/Phrase'
 import { Score } from '@value-object/Score'
 
+/**
+ *
+ */
 export class ScoringDomainService {
   // Метод расчёта баллов за точность речи
+  /**
+   *
+   * @param userSpeech
+   * @param referenceText
+   */
   calculateScore(userSpeech: Phrase, referenceText: Phrase): Score {
     const userNormalized = userSpeech.normalize()
     const referenceNormalized = referenceText.normalize()
@@ -17,6 +25,11 @@ export class ScoringDomainService {
   }
 
   // Приватный метод расчёта расстояния Левенштейна
+  /**
+   *
+   * @param a
+   * @param b
+   */
   private calculateLevenshteinDistance(a: string, b: string): number {
     const matrix = Array.from({ length: a.length + 1 }, (_, i) => Array.from({ length: b.length + 1 }, (_, j) => (i === 0 ? j : j === 0 ? i : 0)))
 

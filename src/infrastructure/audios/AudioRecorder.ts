@@ -1,7 +1,15 @@
 import { recordAudio } from '@lib/audio-processing'
 import { createFileWriteStream } from '@lib/stream'
 
+/**
+ *
+ */
 export class AudioRecorder {
+  /**
+   *
+   * @param outputFile
+   * @param duration
+   */
   async recordAudio(outputFile: string, duration: number): Promise<void> {
     console.log(`Запись началась: ${duration} секунд`)
     const file = createFileWriteStream(outputFile, { encoding: 'binary' })

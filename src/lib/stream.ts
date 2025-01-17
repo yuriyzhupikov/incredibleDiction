@@ -1,9 +1,13 @@
 import fs, { PathLike, ReadStream, WriteStream } from 'node:fs'
 import { Transform, TransformCallback, Writable } from 'node:stream'
 
+/**
+ * @param maxWidth
+ * @param maxHeight
+ */
 export const amplitudeScreenTransformStream = (maxWidth: number, maxHeight: number) => {
   let buffer = Buffer.alloc(0)
-  const amplitudes = []
+  const amplitudes: number[] = []
 
   return new Transform({
     transform(chunk: any, encoding: BufferEncoding, callback: TransformCallback) {
@@ -51,6 +55,9 @@ export const amplitudeScreenTransformStream = (maxWidth: number, maxHeight: numb
   })
 }
 
+/**
+ *
+ */
 export const createConsoleWriteStream = () => {
   return new Writable({
     write(chunk, encoding, callback) {
@@ -60,10 +67,19 @@ export const createConsoleWriteStream = () => {
   })
 }
 
+/**
+ * @param path
+ * @param options
+ */
 export const createFileReadStream = (path: PathLike, options?: any): ReadStream => {
   return fs.createReadStream(path, options)
 }
 
+/**
+ *
+ * @param path
+ * @param options
+ */
 export const createFileWriteStream = (path: PathLike, options?: any): WriteStream => {
   return fs.createWriteStream(path, options)
 }

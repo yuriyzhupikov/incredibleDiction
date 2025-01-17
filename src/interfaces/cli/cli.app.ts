@@ -1,8 +1,9 @@
+import { ScoringDomainService } from '@service/ScoringDomainService'
+
 import { ScoringService } from '@application/service/scoring.service'
 import { SpeechService } from '@application/service/speech-analysis.service'
 import { AnalyzeSpeechUseCase } from '@application/usecase/analyze-speech.usecase'
 import { AudioRecorder } from '@infrastructure/audio/AudioRecorder'
-import { ScoringDomainService } from '@service/ScoringDomainService'
 
 import { CLIInput } from './cli.input'
 import { CLIOutput } from './cli.output'

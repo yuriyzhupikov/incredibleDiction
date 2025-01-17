@@ -2,6 +2,7 @@ import { strictEqual, deepStrictEqual } from 'node:assert'
 import { test } from 'node:test'
 
 import { ScoringDomainService } from '@service/ScoringDomainService'
+
 import { Phrase } from '@value-object/Phrase'
 
 test('ScoringDomainService: совпадающие тексты дают 100 баллов', () => {

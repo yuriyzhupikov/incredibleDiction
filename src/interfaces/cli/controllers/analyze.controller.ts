@@ -3,13 +3,25 @@ import { AnalyzeSpeechUseCase } from '@application/usecase/analyze-speech.usecas
 import { CLIInput } from '../cli.input'
 import { CLIOutput } from '../cli.output'
 
+/**
+ *
+ */
 export class AnalyzeController {
+  /**
+   *
+   * @param analyzeSpeechUseCase
+   * @param cliInput
+   * @param cliOutput
+   */
   constructor(
     private readonly analyzeSpeechUseCase: AnalyzeSpeechUseCase,
     private readonly cliInput: CLIInput,
     private readonly cliOutput: CLIOutput,
   ) {}
 
+  /**
+   *
+   */
   async handle(): Promise<void> {
     // 1. Запрашиваем у пользователя данные через CLI
     const audioFilePath = this.cliInput.prompt('Введите путь к аудиофайлу:')
@@ -24,7 +36,7 @@ export class AnalyzeController {
       this.cliOutput.info(`Текст из аудио: ${result.getAnalyzedText()}`)
       this.cliOutput.info(`Эталонный текст: ${result.getReferenceText()}`)
       this.cliOutput.info(`Баллы за точность: ${result.getScore().getValue()}`)
-    } catch (error) {
+    } catch (error: Error) {
       // Обработка ошибок
       this.cliOutput.error('Ошибка во время анализа речи:')
       this.cliOutput.error(error.message)

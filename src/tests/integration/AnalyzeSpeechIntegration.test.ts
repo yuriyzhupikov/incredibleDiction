@@ -1,11 +1,12 @@
 import { strictEqual } from 'node:assert'
 import { test } from 'node:test'
 
+import { ScoringDomainService } from '@service/ScoringDomainService'
+
 import { ScoringService } from '@application/service/scoring.service'
 import { SpeechService } from '@application/service/speech-analysis.service'
 import { AnalyzeSpeechUseCase } from '@application/usecase/analyze-speech.usecase'
 import { AudioProcessor } from '@infrastructure/audio/AudioProcessor'
-import { ScoringDomainService } from '@service/ScoringDomainService'
 
 test('AnalyzeSpeechUseCase: анализирует аудио и возвращает корректный результат', async () => {
   const audioProcessor = new AudioProcessor()
@@ -20,6 +21,6 @@ test('AnalyzeSpeechUseCase: анализирует аудио и возвращ�
 
   const result = await analyzeSpeechUseCase.execute(audioFilePath, referenceText)
 
-  strictEqual(result.analyzedText, 'This is a test phrase')
-  strictEqual(result.score.getValue(), 100)
+  strictEqual(result.getAnalyzedText(), 'This is a test phrase')
+  strictEqual(result.getScore().getValue(), 100)
 })

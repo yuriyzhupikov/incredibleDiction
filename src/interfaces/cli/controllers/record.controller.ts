@@ -3,13 +3,25 @@ import { AudioRecorder } from '@infrastructure/audio/AudioRecorder'
 import { CLIInput } from '../cli.input'
 import { CLIOutput } from '../cli.output'
 
+/**
+ *
+ */
 export class RecordController {
+  /**
+   *
+   * @param audioRecorder
+   * @param cliInput
+   * @param cliOutput
+   */
   constructor(
     private readonly audioRecorder: AudioRecorder,
     private readonly cliInput: CLIInput,
     private readonly cliOutput: CLIOutput,
   ) {}
 
+  /**
+   *
+   */
   async handle(): Promise<void> {
     try {
       // 1. Получаем путь для сохранения аудиофайла
@@ -29,7 +41,7 @@ export class RecordController {
 
       // 4. Уведомляем об успешной записи
       this.cliOutput.success(`Запись успешно завершена и сохранена в ${outputFile}`)
-    } catch (error) {
+    } catch (error: Error) {
       // Обработка ошибок
       this.cliOutput.error('Произошла ошибка во время записи аудио:')
       this.cliOutput.error(error.message)

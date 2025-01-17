@@ -2,6 +2,12 @@ import { Readable, Writable, Duplex } from 'node:stream'
 
 import ffmpeg from 'fluent-ffmpeg'
 
+/**
+ * @param root0
+ * @param root0.inputStream
+ * @param root0.transformStream
+ * @param root0.outputStream
+ */
 export const visualizeAudio = ({
   inputStream,
   transformStream,
