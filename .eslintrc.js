@@ -17,7 +17,7 @@ module.exports = {
       },
     },
   },
-  plugins: ['@typescript-eslint', 'prettier', 'import', 'simple-import-sort'],
+  plugins: ['@typescript-eslint', 'prettier', 'import', 'simple-import-sort', 'jsdoc'],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
@@ -97,5 +97,21 @@ module.exports = {
     '@typescript-eslint/no-explicit-any': 'off', // todo fix
     '@typescript-eslint/no-var-requires': 'off',
     'import/no-unresolved': 'off',
+    'jsdoc/require-jsdoc': [
+      'warn',
+      {
+        require: {
+          FunctionDeclaration: true,
+          MethodDefinition: true,
+          ClassDeclaration: true,
+          ArrowFunctionExpression: true,
+          FunctionExpression: false,
+        },
+      },
+    ],
+    'jsdoc/check-alignment': 'error', // Проверяет правильность отступов
+    'jsdoc/check-param-names': 'error', // Проверяет соответствие параметров
+    'jsdoc/require-param': 'error', // Требует описание параметров
+    'jsdoc/require-returns': 'error', // Требует описание возвращаемого значения
   },
 }
