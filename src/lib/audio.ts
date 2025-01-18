@@ -1,10 +1,9 @@
 import { exec } from 'child_process'
 import { promisify } from 'util'
 
-import DynamicTimeWarping from 'dynamic-time-warping'
-
 import { readFile } from '@lib/file'
 
+import DynamicTimeWarping from 'dynamic-time-warping'
 import { record } from 'node-record-lpcm16'
 import WavDecoder from 'wav-decoder'
 
@@ -111,8 +110,8 @@ export const playAudio = async (filePath: string) => {
  * @param referenceSamples
  * @returns {number}
  */
-export const getDistanceAudio = (userSamples: globalThis.Float32Array, referenceSamples: globalThis.Float32Array): number => {
-  const dtw = new DynamicTimeWarping<globalThis.Float32Array>(referenceSamples, userSamples, (a: number, b: number) => Math.abs(a - b))
+export const getDistanceAudio = (userSamples: any, referenceSamples: any): number => {
+  const dtw = new DynamicTimeWarping<number>(referenceSamples, userSamples, (a, b) => Math.abs(a - b))
   return dtw.getDistance()
 }
 

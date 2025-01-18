@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "rimraf build && tsc",
-    "start:cli": "npm run build && ./scr/scripts/start-cli.sh",
+    "start:cli": "npm run build && ./src/scripts/start-cli.sh",
     "docs": "jsdoc ./src -r -d ./docs",
     "docs:generate": "jsdoc2md src/**/*.js > ./docs/API.md",
     "docs:write": "npm run build && node -r ./tsconfig-paths-bootstrap.js ./build/lib/doc.js",

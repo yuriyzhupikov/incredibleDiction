@@ -1,6 +1,9 @@
-/** Handles audio processing tasks. */
+import { playAudio, recordAudio } from '@lib/audio'
 import { readFile } from '@lib/file'
+import { amplitudeScreenTransformStream, createConsoleWriteStream, createFileReadStream, createFileWriteStream } from '@lib/stream'
+import { visualizeAudio } from '@lib/visualize'
 
+/** Handles audio processing tasks */
 export class AudioProcessor {
   /**
    * Converts audio file to text.
@@ -12,7 +15,46 @@ export class AudioProcessor {
     const file = await readFile(filePath)
     console.log('Audio file processed:', filePath)
 
-    // Returns example text (integrate a TTS library in a real project)
     return 'Example text derived from audio'
+  }
+
+  /** @param filePath */
+  async play(filePath: string): Promise<void> {
+    await playAudio(filePath)
+  }
+
+  /**
+   * Records audio and saves it to a file.
+   *
+   * @param {string} outputFile - The output file path where audio will be saved.
+   * @param {number} duration - The duration of the recording in seconds.
+   * @returns {Promise<void>} - Resolves when the recording is complete.
+   */
+  async record(outputFile: string, duration: number): Promise<void> {
+    console.log(`Recording started: ${duration} seconds`)
+    const file = createFileWriteStream(outputFile, { encoding: 'binary' })
+
+    const recording = recordAudio({ sampleRate: 16000, threshold: 0.5 }).stream().pipe(file)
+
+    await new Promise((resolve) =>
+      setTimeout(() => {
+        recording.end()
+        console.log('Recording finished.')
+        resolve(null)
+      }, duration * 1000),
+    )
+  }
+
+  /**
+   * Displays the waveform of an audio file in the console.
+   *
+   * @param {string} audioFilePath - The path to the audio file.
+   * @returns {Promise<void>} - Resolves when visualization is complete.
+   */
+  async displayWaveformToConsole(audioFilePath: string): Promise<void> {
+    const inputStream = createFileReadStream(audioFilePath)
+    const outputStream = createConsoleWriteStream()
+    const transformStream = amplitudeScreenTransformStream(100, 20)
+    await visualizeAudio({ inputStream, transformStream, outputStream })
   }
 }

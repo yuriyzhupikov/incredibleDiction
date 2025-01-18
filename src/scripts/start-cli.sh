@@ -15,9 +15,10 @@ if ! command -v node &> /dev/null; then
   exit 1
 fi
 
-# Запуск CLI-приложения
+cd "../" || exet 1
+
 echo "Запуск CLI-приложения..."
-node dist/interfaces/cli/cli.app.js "$@"
+node -r ./tsconfig-paths-bootstrap.js build/interfaces/cli/cli.app.js "$@"
 
 #./scripts/start-cli.sh record
 #./scripts/start-cli.sh analyze
