@@ -1,4 +1,4 @@
-import { recordAudio } from '@lib/audio-processing'
+import { recordAudio } from '@lib/audio'
 import { createFileWriteStream } from '@lib/stream'
 
 /** Manages audio recording tasks. */
@@ -14,7 +14,7 @@ export class AudioRecorder {
     console.log(`Recording started: ${duration} seconds`)
     const file = createFileWriteStream(outputFile, { encoding: 'binary' })
 
-    const recording = recordAudio({ sampleRate: 16000 }).stream().pipe(file)
+    const recording = recordAudio({ sampleRate: 16000, threshold: 0.5 }).stream().pipe(file)
 
     await new Promise((resolve) =>
       setTimeout(() => {

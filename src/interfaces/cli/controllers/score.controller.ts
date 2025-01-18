@@ -32,9 +32,8 @@ export class ScoreController {
       this.cliOutput.info(`Text from audio: ${result.getAnalyzedText()}`)
       this.cliOutput.info(`Reference text: ${result.getReferenceText()}`)
       this.cliOutput.info(`Accuracy score: ${result.getScore().getValue()}`)
-    } catch (error: Error) {
-      this.cliOutput.error('An error occurred during speech analysis:')
-      this.cliOutput.error(error.message)
+    } catch (error) {
+      this.cliOutput.error(error, 'An error occurred during speech analysis:')
     }
   }
 }

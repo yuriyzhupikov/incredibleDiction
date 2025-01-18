@@ -10,7 +10,7 @@ export class AudioFile {
    */
   constructor(
     private readonly path: string,
-    private readonly sample: Float32Array<number>,
+    private readonly sample: globalThis.Float32Array,
     private readonly format: string,
   ) {
     if (!path || !format) {
@@ -32,7 +32,7 @@ export class AudioFile {
    *
    * @returns {Float32Array} The sample of file.
    */
-  getSample(): Float32Array<number> {
+  getSample(): globalThis.Float32Array {
     return this.sample
   }
 

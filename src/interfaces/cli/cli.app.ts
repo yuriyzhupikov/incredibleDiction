@@ -1,11 +1,10 @@
-import { RecordController } from '@controller/record.controller'
-import { ScoreController } from '@controller/score.controller'
-
 import { ScoringDomainService } from '@service/ScoringDomainService'
 
 import { ScoringService } from '@application/service/scoring.service'
 import { SpeechService } from '@application/service/speech-analysis.service'
 import { AnalyzeSpeechUseCase } from '@application/usecase/analyze-speech.usecase'
+import { RecordController } from '@controller/record.controller'
+import { ScoreController } from '@controller/score.controller'
 import { AudioRecorder } from '@infrastructure/audio/AudioRecorder'
 
 import { CLIInput } from './cli.input'
@@ -59,6 +58,6 @@ const scoreController = new ScoreController(analyzeSpeechUseCase, cliInput, cliO
       await scoreController.handle()
       break
     default:
-      cliOutput.error('❌ Unknown command.')
+      cliOutput.error(new Error(''), '❌ Unknown command.')
   }
 })()

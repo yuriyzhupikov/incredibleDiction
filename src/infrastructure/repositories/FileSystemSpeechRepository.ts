@@ -1,24 +1,22 @@
+import { handleError } from '@lib/error'
 import { deleteFile, getPathFile, readFile, writeFile } from '@lib/file'
 
 import { SpeechRepository } from '@repository/SpeechRepository'
 
 import { Speech } from '@entity/Speech'
 
-/**
- * Repository for speech data storage in the file system.
- */
+/** Repository for speech data storage in the file system. */
 export class FileSystemSpeechRepository implements SpeechRepository {
   private readonly basePath: string
 
-  /**
-   * @param {string} basePath - The base directory for storing speech data.
-   */
+  /** @param {string} basePath - The base directory for storing speech data. */
   constructor(basePath: string) {
     this.basePath = basePath
   }
 
   /**
    * Finds a speech record by ID.
+   *
    * @param {string} id - The ID of the speech record.
    * @returns {Promise<Speech | null>} - The speech record or null if not found.
    */
@@ -26,14 +24,16 @@ export class FileSystemSpeechRepository implements SpeechRepository {
     const filePath = getPathFile(this.basePath, `${id}.json`)
     try {
       const data = await readFile(filePath, 'utf-8')
-      return JSON.parse(data) as Speech
+      return JSON.parse(data.toString()) as Speech
     } catch (error) {
+      handleError(error, 'Parsing error string')
       return null
     }
   }
 
   /**
    * Saves a speech record to the file system.
+   *
    * @param {Speech} speech - The speech record to save.
    * @returns {Promise<void>} - Resolves when the record is saved.
    */
@@ -44,6 +44,7 @@ export class FileSystemSpeechRepository implements SpeechRepository {
 
   /**
    * Deletes a speech record by ID.
+   *
    * @param {string} id - The ID of the speech record.
    * @returns {Promise<void>} - Resolves when the record is deleted.
    */
@@ -51,8 +52,8 @@ export class FileSystemSpeechRepository implements SpeechRepository {
     const filePath = getPathFile(this.basePath, `${id}.json`)
     try {
       await deleteFile(filePath)
-    } catch (error: Error) {
-      console.error(`Error deleting file: ${error.message}`)
+    } catch (error) {
+      handleError(error, 'Error deleting file')
     }
   }
 }

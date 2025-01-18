@@ -2,8 +2,8 @@ import fs from 'fs'
 import path from 'path'
 
 /**
- * @param dir
- * @param fileCallback
+ * @param {string} dir
+ * @param {Function} fileCallback
  */
 function scanFiles(dir: string, fileCallback: (filePath: string) => void) {
   fs.readdirSync(dir).forEach((file) => {
@@ -16,7 +16,7 @@ function scanFiles(dir: string, fileCallback: (filePath: string) => void) {
   })
 }
 
-/** @param filePath */
+/** @param {string} filePath */
 function addJsDoc(filePath: string) {
   const content = fs.readFileSync(filePath, 'utf-8')
   const updatedContent = content.replace(/(function|const|let|var|class) (\w+)(.*?){/g, (match, type, name, params) => {
@@ -26,7 +26,7 @@ function addJsDoc(filePath: string) {
 ${params
   .replace(/[()]/g, '')
   .split(',')
-  .map((param) => ` * @param ${param.trim()} - description`)
+  .map((param: string) => ` * @param ${param.trim()} - description`)
   .join('\n')} * @returns {unknown}
  */
 `

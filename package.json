@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "docs": "jsdoc ./src -r -d ./docs",
-    "generate-docs": "jsdoc2md src/**/*.js > API.md",
     "build": "rimraf build && tsc",
+    "start:cli": "npm run build && ./scr/scripts/start-cli.sh",
+    "docs": "jsdoc ./src -r -d ./docs",
+    "docs:generate": "jsdoc2md src/**/*.js > ./docs/API.md",
+    "docs:write": "npm run build && node -r ./tsconfig-paths-bootstrap.js ./build/lib/doc.js",
     "lint": "eslint --fix 'src/**/*.ts'",
     "prettify": "prettier --write 'src/**/*.ts'",
     "test": "npm run build && node -r ./tsconfig-paths-bootstrap.js --test",
@@ -16,12 +18,12 @@
   "description": "",
   "repository": {
     "type": "git",
-    "url": "git+https://gitlab.lenguard.ru/leningrad/SportParser.git"
+    "url": "git+https://github.com/yuriyzhupikov/incredibleDiction.git"
   },
   "author": "https://github.com/yuriyzhupikov",
   "license": "MIT",
   "bugs": {
-    "url": ""
+    "url": "https://github.com/yuriyzhupikov/incredibleDiction/issues"
   },
   "homepage": "",
   "dependencies": {

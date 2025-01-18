@@ -1,9 +1,10 @@
-/**
- * Handles audio processing tasks.
- */
+/** Handles audio processing tasks. */
+import { readFile } from '@lib/file'
+
 export class AudioProcessor {
   /**
    * Converts audio file to text.
+   *
    * @param {string} filePath - The path to the audio file.
    * @returns {Promise<string>} - The converted text from the audio.
    */

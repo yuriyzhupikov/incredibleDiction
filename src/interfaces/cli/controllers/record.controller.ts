@@ -35,9 +35,8 @@ export class RecordController {
       await this.audioRecorder.recordAudio(outputFile, duration)
 
       this.cliOutput.success(`Recording successfully completed and saved to ${outputFile}`)
-    } catch (error: Error) {
-      this.cliOutput.error('An error occurred during audio recording:')
-      this.cliOutput.error(error.message)
+    } catch (error) {
+      this.cliOutput.error(error, 'An error occurred during audio recording:')
     }
   }
 }

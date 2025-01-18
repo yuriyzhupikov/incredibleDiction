@@ -3,9 +3,7 @@ import { AnalyzeSpeechUseCase } from '@application/usecase/analyze-speech.usecas
 import { CLIInput } from '../cli.input'
 import { CLIOutput } from '../cli.output'
 
-/**
- * Controller to handle the speech analysis process.
- */
+/** Controller to handle the speech analysis process. */
 export class AnalyzeController {
   /**
    * @param {AnalyzeSpeechUseCase} analyzeSpeechUseCase - The use case for analyzing speech.
@@ -20,6 +18,7 @@ export class AnalyzeController {
 
   /**
    * Handles the analysis workflow.
+   *
    * @returns {Promise<void>} - Resolves when the process completes.
    */
   async handle(): Promise<void> {
@@ -33,9 +32,8 @@ export class AnalyzeController {
       this.cliOutput.info(`Text from audio: ${result.getAnalyzedText()}`)
       this.cliOutput.info(`Reference text: ${result.getReferenceText()}`)
       this.cliOutput.info(`Accuracy score: ${result.getScore().getValue()}`)
-    } catch (error: Error) {
-      this.cliOutput.error('Error during speech analysis:')
-      this.cliOutput.error(error.message)
+    } catch (error) {
+      this.cliOutput.error(error, 'Error during speech analysis:')
     }
   }
 }

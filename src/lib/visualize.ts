@@ -4,6 +4,7 @@ import ffmpeg from 'fluent-ffmpeg'
 
 /**
  * Processes an audio stream and applies transformations to visualize audio data.
+ *
  * @param {Object} params
  * @param {Readable} params.inputStream - The input audio stream.
  * @param {Duplex} params.transformStream - The stream to transform audio data.

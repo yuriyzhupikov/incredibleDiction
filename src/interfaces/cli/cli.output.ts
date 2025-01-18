@@ -1,3 +1,5 @@
+import { handleError } from '@lib/error'
+
 /** Outputs messages to the console. */
 export class CLIOutput {
   /**
@@ -21,9 +23,10 @@ export class CLIOutput {
   /**
    * Outputs an error message.
    *
+   * @param {unknown} error - The object of error.
    * @param {string} message - The error message to display.
    */
-  error(message: string): void {
-    console.error(`❌ ${message}`)
+  error(error: unknown, message: string): void {
+    handleError(error, message)
   }
 }

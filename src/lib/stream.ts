@@ -3,6 +3,7 @@ import { Transform, TransformCallback, Writable } from 'node:stream'
 
 /**
  * Creates a Transform stream for audio amplitude visualization.
+ *
  * @param {number} maxWidth - The maximum width for the visualization.
  * @param {number} maxHeight - The maximum height for the visualization.
  * @returns {Transform}
@@ -54,6 +55,7 @@ export const amplitudeScreenTransformStream = (maxWidth: number, maxHeight: numb
 
 /**
  * Creates a Writable stream for writing to the console.
+ *
  * @returns {Writable}
  */
 export const createConsoleWriteStream = () => {
@@ -67,6 +69,7 @@ export const createConsoleWriteStream = () => {
 
 /**
  * Creates a Readable stream for reading from a file.
+ *
  * @param {PathLike} path - The file path.
  * @param {Object} [options] - Options for the Readable stream.
  * @returns {ReadStream}
@@ -77,6 +80,7 @@ export const createFileReadStream = (path: PathLike, options?: any): ReadStream 
 
 /**
  * Creates a Writable stream for writing to a file.
+ *
  * @param {PathLike} path - The file path.
  * @param {Object} [options] - Options for the Writable stream.
  * @returns {WriteStream}

@@ -1,5 +1,4 @@
 declare module 'wav-decoder' {
-  function decodeSync(buffer: Buffer, opts?: any)
   async function decode(
     buffer: Buffer,
     opts?: any,
@@ -7,6 +6,6 @@ declare module 'wav-decoder' {
     numberOfChannels: number
     length: number
     sampleRate: number
-    channelData: Float32Array<number>[]
+    channelData: globalThis.Float32Array[]
   }>
 }

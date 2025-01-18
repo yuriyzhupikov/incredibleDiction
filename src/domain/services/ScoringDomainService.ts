@@ -1,4 +1,4 @@
-import { getDistanceAudio } from '@lib/audio-processing'
+import { getDistanceAudio } from '@lib/audio'
 
 import { AudioFile } from '@value-object/AudioFile'
 import { Score } from '@value-object/Score'
