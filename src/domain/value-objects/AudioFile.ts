@@ -4,7 +4,7 @@ export class AudioFile {
    * Creates an instance of AudioFile.
    *
    * @param {string} path - The file path.
-   * @param {Float32Array<number>} sample - Sdf
+   * @param {Float32Array} sample - Sdf
    * @param {string} format - The file format.
    * @throws {Error} Throws an error if the path or format is invalid.
    */

@@ -1,5 +1,5 @@
 import { handleError } from '@lib/error'
-import { deleteFile, getPathFile, readFile, writeFile } from '@lib/file'
+import { deleteFile, getPathFile, readFileString, writeFile } from '@lib/file'
 
 import { SpeechRepository } from '@repository/SpeechRepository'
 
@@ -23,7 +23,7 @@ export class FileSystemSpeechRepository implements SpeechRepository {
   async findById(id: string): Promise<Speech | null> {
     const filePath = getPathFile(this.basePath, `${id}.json`)
     try {
-      const data = await readFile(filePath, 'utf-8')
+      const data = await readFileString(filePath, 'utf-8')
       return JSON.parse(data.toString()) as Speech
     } catch (error) {
       handleError(error, 'Parsing error string')

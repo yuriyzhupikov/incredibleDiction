@@ -2,21 +2,18 @@ import { deleteFile, getPathFile, writeFile } from '@lib/file'
 
 import { AudioStorageRepository } from '@repository/AudioStorageRepository'
 
-/**
- * Repository for audio storage in the file system.
- */
+/** Repository for audio storage in the file system. */
 export class FileSystemAudioStorage implements AudioStorageRepository {
   private readonly basePath: string
 
-  /**
-   * @param {string} basePath - The base directory for storing audio files.
-   */
+  /** @param {string} basePath - The base directory for storing audio files. */
   constructor(basePath: string) {
     this.basePath = basePath
   }
 
   /**
    * Saves an audio file to the file system.
+   *
    * @param {string} userId - The user ID.
    * @param {string} fileName - The name of the file to save.
    * @param {Buffer} fileBuffer - The audio file buffer.
@@ -30,6 +27,7 @@ export class FileSystemAudioStorage implements AudioStorageRepository {
 
   /**
    * Deletes an audio file from the file system.
+   *
    * @param {string} userId - The user ID.
    * @param {string} fileName - The name of the file to delete.
    * @returns {Promise<void>} - Resolves when the file is deleted.

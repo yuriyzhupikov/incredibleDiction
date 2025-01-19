@@ -1,5 +1,5 @@
 import { playAudio, recordAudio } from '@lib/audio'
-import { readFile } from '@lib/file'
+import { readFileString } from '@lib/file'
 import { amplitudeScreenTransformStream, createConsoleWriteStream, createFileReadStream, createFileWriteStream } from '@lib/stream'
 import { visualizeAudio } from '@lib/visualize'
 
@@ -12,7 +12,7 @@ export class AudioProcessor {
    * @returns {Promise<string>} - The converted text from the audio.
    */
   async convertAudioToText(filePath: string): Promise<string> {
-    const file = await readFile(filePath)
+    const file = await readFileString(filePath)
     console.log('Audio file processed:', filePath)
 
     return 'Example text derived from audio'

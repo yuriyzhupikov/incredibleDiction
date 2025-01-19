@@ -28,4 +28,15 @@ export class AnalysisResult {
   getScore(): Score {
     return this.score
   }
+
+  /**
+   * Aggregates multiple results into one.
+   *
+   * @param {AnalysisResult[]} results
+   * @returns {AnalysisResult}
+   */
+  static aggregate(results: AnalysisResult[]): AnalysisResult {
+    const combinedScore = results.reduce((sum, result) => sum + result.score.getValue(), 0) / results.length
+    return new AnalysisResult(results[0].speechId, new Score(combinedScore))
+  }
 }

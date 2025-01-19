@@ -1,7 +1,7 @@
 import { exec } from 'child_process'
 import { promisify } from 'util'
 
-import { readFile } from '@lib/file'
+import { readFileBuffer } from '@lib/file'
 
 import DynamicTimeWarping from 'dynamic-time-warping'
 import { record } from 'node-record-lpcm16'
@@ -120,7 +120,7 @@ export const getDistanceAudio = (userSamples: any, referenceSamples: any): numbe
  * @returns {Promise<Float32Array<number>>}
  */
 export const decodeWav = async (filePath: string): Promise<globalThis.Float32Array> => {
-  const buffer = (await readFile(filePath, 'binary')) as Buffer
+  const buffer = await readFileBuffer(filePath)
   const decoded = await WavDecoder.decode(buffer)
   return decoded.channelData[0] // моно
 }

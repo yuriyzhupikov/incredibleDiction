@@ -17,6 +17,18 @@ export class AnalyzeSpeechUseCase {
   /**
    * Executes the speech analysis process.
    *
+   * @param speechId
+   */
+  // public async execute(speechId: string): Promise<AnalysisResult> {
+  //   const speech = await this.speechService.getSpeech(speechId)
+  //   if (!speech) {
+  //     throw new Error('Speech not found')
+  //   }
+  //   const score = this.scoringService.calculate(speech.audio)
+  //   return new AnalysisResult(speech.id, score)
+  // }
+
+  /**
    * @param {string} userAudioFilePath - The path to the audio file.
    * @param {string} referenceAudioFilePath - The reference text for comparison.
    * @returns {Promise<AnalysisResult>} - The result of the speech analysis.

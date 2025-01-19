@@ -8,17 +8,27 @@ export class Speech {
    * @param {AudioFile} audio The audio file as a Value Object.
    * @param {Phrase} [text] Text representation (may be missing).
    */
-  constructor(
+  private constructor(
     private readonly id: string,
     private readonly audio: AudioFile,
     private readonly text?: Phrase,
   ) {}
 
   /**
-   * Getting the text of speech.
+   * Factory method to create a Speech instance with validations.
    *
-   * @returns {Phrase | undefined} The text representation of speech, or undefined if there is no text.
+   * @param id
+   * @param audio
+   * @param text
+   * @returns {Speech}
    */
+  static create(id: string, audio: AudioFile, text?: Phrase): Speech {
+    if (!id) throw new Error('ID cannot be empty')
+    // Additional validations can go here
+    return new Speech(id, audio, text)
+  }
+
+  /** Example method to get text representation */
   getText(): Phrase | undefined {
     return this.text
   }
