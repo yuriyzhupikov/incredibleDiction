@@ -1,4 +1,4 @@
-# Incredible Diction App (Test Version)
+# Incredible Diction App (Test Console Version)
 
 Welcome to the test version of the **Incredible Diction App**! This application helps you train your diction skills in an engaging and interactive way.
 
@@ -6,7 +6,7 @@ Welcome to the test version of the **Incredible Diction App**! This application 
 
 ## 📄 Description
 The app allows you to:
-- Listen to sample audio clips.
+- Listen to sample audio clips. (At the moment, the application supports one sample audio file)
 - Repeat what you hear using your microphone.
 - Analyze your performance through a sound graph.
 
