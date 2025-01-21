@@ -32,7 +32,11 @@ If you encounter any issues, feel free to report them via the issue tracker.
 ---
 
 ## 🔊 Example of work
-![](uploads/example.png)
+###Successfully
+![](uploads/successfully.png)
+
+###Failed
+![](uploads/failed.png)
 
 ---
 
