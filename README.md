@@ -1,7 +1,7 @@
 # Incredible Diction App (Test Console Version)
 
 Welcome to the test version of the **Incredible Diction App**! This application helps you train your diction skills in an engaging and interactive way.
-
+<br>This version still supports definitions of simple phrases.
 ---
 
 ## 📄 Description
