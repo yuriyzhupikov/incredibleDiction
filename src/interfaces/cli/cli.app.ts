@@ -8,6 +8,9 @@ import { AudioProcessor } from '@infrastructure/audio/AudioProcessor'
 import { CLIInput } from './cli.input'
 import { CLIOutput } from './cli.output'
 ;(async () => {
+  const args = process.argv.slice(2)
+  const [originalAudioPath] = args
+
   const cliInput = new CLIInput()
   const cliOutput = new CLIOutput()
 
@@ -16,8 +19,6 @@ import { CLIOutput } from './cli.output'
   const scoringService = new ScoringService(new ScoringDomainService())
 
   const repeatSpeechUseCase = new RepeatSpeechUseCase(speechService, scoringService, audioProcessor, cliInput, cliOutput)
-
-  const originalAudioPath = `${process.cwd()}/uploads/audio/samples/short_voice.wav`
 
   try {
     await repeatSpeechUseCase.execute(originalAudioPath)

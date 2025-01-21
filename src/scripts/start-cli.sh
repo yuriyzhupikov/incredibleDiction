@@ -1,24 +1,20 @@
 #!/bin/bash
 #chmod +x scripts/start-cli.sh
 
-# Убедимся, что скрипт выполняется в корневой директории проекта
+# Make sure that the script is executed in the root directory of the project
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)
 cd "$SCRIPT_DIR/.." || exit 1
 
-# Установка переменных окружения (если требуется)
 export NODE_ENV=development
-export AUDIO_PATH=./audio
+export AUDIO_PATH=.upload/audio
 
 # Проверяем, установлен ли Node.js
 if ! command -v node &> /dev/null; then
-  echo "❌ Node.js не установлен. Установите Node.js и попробуйте снова."
+  echo "❌ Node.js is not installed. Install Node.js and try again."
   exit 1
 fi
 
 cd "../" || exet 1
 
-echo "Запуск CLI-приложения..."
+echo "Start CLI-app..."
 node -r ./tsconfig-paths-bootstrap.js build/interfaces/cli/cli.app.js "$@"
-
-#./scripts/start-cli.sh record
-#./scripts/start-cli.sh analyze

@@ -18,12 +18,11 @@
 //
 // const inputFile = process.argv[2]
 // if (!inputFile) {
-//   console.error('Укажите путь к файлу.mp3')
 //   process.exit(1)
 // }
 //
 // const outputFile = path.basename(inputFile, path.extname(inputFile)) + '.wav'
 //
 // convertToWav(inputFile, outputFile)
-//   .then((file) => console.log('Файл успешно конвертирован:', file))
-//   .catch((err) => console.error('Ошибка конвертации:', err))
+//   .then((file) => console.log('Ok:', file))
+//   .catch((err) => console.error('Error:', err))

@@ -1,12 +1,10 @@
 {
   "name": "incrediblediction",
-  "version": "1.0.0",
-  "main": "index.js",
+  "version": "0.0.1",
   "scripts": {
     "build": "rimraf build && tsc",
-    "start:cli": "npm run build && ./src/scripts/start-cli.sh",
-    "docs": "jsdoc ./src -r -d ./docs",
-    "docs:generate": "jsdoc2md src/**/*.js > ./docs/API.md",
+    "start:cli": "npm run build && ./src/scripts/start-cli.sh ./uploads/audio/samples/voice1.wav",
+    "docs:generate": "npm run build && jsdoc2md ./build/**/*.js > ./docs/doc.md",
     "docs:write": "npm run build && node -r ./tsconfig-paths-bootstrap.js ./build/lib/doc.js",
     "lint": "eslint --fix 'src/**/*.ts'",
     "prettify": "prettier --write 'src/**/*.ts'",

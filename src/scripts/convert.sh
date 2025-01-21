@@ -3,13 +3,13 @@
 # Проверка на наличие ffmpeg
 if ! command -v ffmpeg &> /dev/null
 then
-    echo "ffmpeg не установлен. Установите его перед использованием."
+    echo "ffmpeg is not installed. Install it before using it."
     exit 1
 fi
 
 # Проверка аргумента
 if [ -z "$1" ]; then
-    echo "Использование: ./convert.sh path/to/file.mp3"
+    echo "Use: ./convert.sh path/to/file.mp3"
     exit 1
 fi
 
@@ -18,9 +18,8 @@ INPUT_FILE="$1"
 
 # Проверка существования файла
 if [ ! -f "$INPUT_FILE" ]; then
-    echo "Файл $INPUT_FILE не найден!"
+    echo "The file $INPUT_FILE was not found!"
     exit 1
 fi
 
-# Запуск Node.js скрипта
 node convert.js "$INPUT_FILE"

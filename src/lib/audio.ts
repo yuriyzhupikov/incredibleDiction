@@ -26,10 +26,10 @@ export const recordAudio = (options?: RecordAudioParam): RecordAudioReturn => {
  * Plays an audio file.
  *
  * @param {string} filePath - Path to the audio file (requires SoX installed).
- * @returns {Promise<string>} Resolves with the command output on success.
+ * @returns {Promise<void>} Resolves with the command output on success.
  */
-export const playAudio = async (filePath: string): Promise<string> => {
-  return await execAsync(`play "${filePath}"`)
+export const playAudio = async (filePath: string): Promise<void> => {
+  await execAsync(`play "${filePath}"`)
 }
 
 /**

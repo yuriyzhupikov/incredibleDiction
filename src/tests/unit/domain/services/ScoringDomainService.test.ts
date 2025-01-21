@@ -1,26 +1,22 @@
-// import { strictEqual, deepStrictEqual } from 'node:assert'
-// import { test } from 'node:test'
-//
-// import { ScoringDomainService } from '@service/ScoringDomainService'
-//
-// import { Phrase } from '@value-object/Phrase'
-//
-// test('ScoringDomainService: совпадающие тексты дают 100 баллов', () => {
-//   const scoringService = new ScoringDomainService()
-//   const userSpeech = new Phrase('This is a test phrase')
-//   const referenceText = new Phrase('This is a test phrase')
-//
-//   const score = scoringService.calculateScore(userSpeech, referenceText)
-//
-//   strictEqual(score.getValue(), 100)
-// })
-//
-// test('ScoringDomainService: различия в текстах снижают баллы', () => {
-//   const scoringService = new ScoringDomainService()
-//   const userSpeech = new Phrase('This is a phrase')
-//   const referenceText = new Phrase('This is a test phrase')
-//
-//   const score = scoringService.calculateScore(userSpeech, referenceText)
-//
-//   strictEqual(score.getValue() < 100, true)
-// })
+import assert from 'node:assert'
+import { describe, test } from 'node:test'
+
+import { ScoringDomainService } from '@service/ScoringDomainService'
+
+describe('ScoringDomainService class tests', (t) => {
+  test('should calculate a valid score', () => {
+    const service = new ScoringDomainService()
+    const rawScore = 4
+
+    const score = service.calculateScore(rawScore)
+
+    assert.strictEqual(score.getValue(), rawScore, 'Score value should match rawScore')
+    assert.strictEqual(score.isPassing(), true, 'The score must be 5 or lower')
+  })
+
+  test('should throw an error for invalid rawScore', () => {
+    const service = new ScoringDomainService()
+
+    assert.throws(() => service.calculateScore(-5), /Score must be than more 0/, 'Should throw for invalid rawScore')
+  })
+})

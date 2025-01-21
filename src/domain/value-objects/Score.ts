@@ -6,6 +6,8 @@ export class Score {
    * @param {number} value - The score value.
    * @throws {Error} Throws an error if the score is not between 0 and 100.
    */
+  private readonly threshold: number = 20
+  /** @param value */
   constructor(private readonly value: number) {
     if (value < 0) {
       throw new Error('Score must be than more 0')
@@ -22,11 +24,20 @@ export class Score {
   }
 
   /**
+   * Retrieves the threshold value.
+   *
+   * @returns {number} The threshold value.
+   */
+  getThreshold(): number {
+    return this.threshold
+  }
+
+  /**
    * Checks if the score is passing.
    *
    * @returns {boolean} True if the score is 70 or higher, otherwise false.
    */
   isPassing(): boolean {
-    return this.value >= 70 // For example, 70 and above is considered passing
+    return this.value < this.threshold
   }
 }

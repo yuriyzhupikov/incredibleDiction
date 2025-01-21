@@ -26,7 +26,6 @@ export const readFileString = async (filePath: string, encoding: BufferEncoding 
  * Reads the content of a file.
  *
  * @param {string} filePath - The file path.
- * @param {BufferEncoding} [encoding='utf-8'] - The encoding of the file. Default is `'utf-8'`
  * @returns {Promise<Buffer>}
  */
 export const readFileBuffer = async (filePath: string): Promise<Buffer> => {

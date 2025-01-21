@@ -1,11 +1,11 @@
 import fs from 'fs'
 import path from 'path'
-
+// "docs": "npm run build && jsdoc ./build -r -d ./docs",
 /**
  * @param {string} dir
  * @param {Function} fileCallback
  */
-function scanFiles(dir: string, fileCallback: (filePath: string) => void) {
+const scanFiles = (dir: string, fileCallback: (filePath: string) => void) => {
   fs.readdirSync(dir).forEach((file) => {
     const fullPath = path.join(dir, file)
     if (fs.statSync(fullPath).isDirectory()) {
@@ -17,7 +17,7 @@ function scanFiles(dir: string, fileCallback: (filePath: string) => void) {
 }
 
 /** @param {string} filePath */
-function addJsDoc(filePath: string) {
+const addJsDoc = (filePath: string) => {
   const content = fs.readFileSync(filePath, 'utf-8')
   const updatedContent = content.replace(/(function|const|let|var|class) (\w+)(.*?){/g, (match, type, name, params) => {
     const jsDoc = `/**
