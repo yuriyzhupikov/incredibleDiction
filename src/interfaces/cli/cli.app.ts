@@ -2,62 +2,26 @@ import { ScoringDomainService } from '@service/ScoringDomainService'
 
 import { ScoringService } from '@application/service/scoring.service'
 import { SpeechService } from '@application/service/speech-analysis.service'
-import { AnalyzeSpeechUseCase } from '@application/usecase/analyze-speech.usecase'
-import { RecordController } from '@controller/record.controller'
-import { ScoreController } from '@controller/score.controller'
-import { AudioRecorder } from '@infrastructure/audio/AudioRecorder'
+import { RepeatSpeechUseCase } from '@application/usecase/repeat-speech.usecase'
+import { AudioProcessor } from '@infrastructure/audio/AudioProcessor'
 
 import { CLIInput } from './cli.input'
 import { CLIOutput } from './cli.output'
-
-// Configure dependencies
-const cliInput = new CLIInput()
-const cliOutput = new CLIOutput()
-
-const speechService = new SpeechService()
-const scoringDomainService = new ScoringDomainService()
-const scoringService = new ScoringService(scoringDomainService)
-const analyzeSpeechUseCase = new AnalyzeSpeechUseCase(speechService, scoringService)
-
-// Initialize controllers
-const recordController = new RecordController(new AudioRecorder(), cliInput, cliOutput)
-const scoreController = new ScoreController(analyzeSpeechUseCase, cliInput, cliOutput)
-
-// ;(async () => {
-//   console.log('Welcome to the CLI application!')
-//   console.log('Choose a command:')
-//   console.log('Record audio: record')
-//   console.log('Analyze speech accuracy: analyze')
-//
-//   const args = process.argv.slice(2)
-//   switch (args[0]) {
-//     case 'record':
-//       await recordController.handle()
-//       break
-//     case 'analyze':
-//       await scoreController.handle()
-//       break
-//     default:
-//       console.log('❌ Unknown command. Use record or analyze.')
-//   }
-// })()
-
 ;(async () => {
-  console.log('Welcome to the IncredibleDiction CLI app!')
-  console.log('Choose command:')
-  console.log('1 - Record audio')
-  console.log('2 - Evaluate the accuracy of speech')
+  const cliInput = new CLIInput()
+  const cliOutput = new CLIOutput()
 
-  const choice = cliInput.prompt('Enter the command number:')
+  const audioProcessor = new AudioProcessor()
+  const speechService = new SpeechService()
+  const scoringService = new ScoringService(new ScoringDomainService())
 
-  switch (choice) {
-    case '1':
-      await recordController.handle()
-      break
-    case '2':
-      await scoreController.handle()
-      break
-    default:
-      cliOutput.error(new Error(''), '❌ Unknown command.')
+  const repeatSpeechUseCase = new RepeatSpeechUseCase(speechService, scoringService, audioProcessor, cliInput, cliOutput)
+
+  const originalAudioPath = `${process.cwd()}/uploads/audio/samples/short_voice.wav`
+
+  try {
+    await repeatSpeechUseCase.execute(originalAudioPath)
+  } catch (error) {
+    cliOutput.error(error, 'Error executing repeatSpeechUseCase.execute()')
   }
 })()

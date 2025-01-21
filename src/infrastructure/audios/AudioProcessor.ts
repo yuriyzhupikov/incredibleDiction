@@ -49,12 +49,30 @@ export class AudioProcessor {
    * Displays the waveform of an audio file in the console.
    *
    * @param {string} audioFilePath - The path to the audio file.
+   * @param {number} width - The path to the audio file.
+   * @param {number} height - The path to the audio file.
    * @returns {Promise<void>} - Resolves when visualization is complete.
    */
-  async displayWaveformToConsole(audioFilePath: string): Promise<void> {
+  async displayWaveformToConsole(audioFilePath: string, width: number, height: number): Promise<void> {
     const inputStream = createFileReadStream(audioFilePath)
     const outputStream = createConsoleWriteStream()
-    const transformStream = amplitudeScreenTransformStream(100, 20)
+    const transformStream = amplitudeScreenTransformStream(width, height)
+    await visualizeAudio({ inputStream, transformStream, outputStream })
+  }
+
+  /**
+   * Displays the waveform of an audio file in the file.
+   *
+   * @param {string} audioFilePath - The path to the audio file.
+   * @param {string} displayFilePath - The path to the display file.
+   * @param {number} width - The path to the audio file.
+   * @param {number} height - The path to the audio file.
+   * @returns {Promise<void>} - Resolves when visualization is complete.
+   */
+  async displayWaveformToFile(audioFilePath: string, displayFilePath: string, width: number, height: number): Promise<void> {
+    const inputStream = createFileReadStream(audioFilePath)
+    const outputStream = createFileWriteStream(displayFilePath)
+    const transformStream = amplitudeScreenTransformStream(width, height)
     await visualizeAudio({ inputStream, transformStream, outputStream })
   }
 }

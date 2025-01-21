@@ -4,11 +4,11 @@ declare module 'dynamic-time-warping' {
     /**
      * Creates a new instance of DynamicTimeWarping.
      *
-     * @param series1 The first data array.
-     * @param series2 The second data array.
+     * @param series1 The first data.
+     * @param series2 The second data.
      * @param distanceFunction A function to compute the distance between two elements.
      */
-    constructor(series1: T[], series2: T[], distanceFunction: (a: T, b: T) => number)
+    constructor(series1: T, series2: T, distanceFunction: (a: number, b: number) => number)
 
     /**
      * Calculates the alignment cost.

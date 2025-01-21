@@ -9,11 +9,11 @@ import { SpeechService } from '../services/speech-analysis.service'
 /** Use case for testing speech and calculating accuracy scores. */
 export class RepeatSpeechUseCase {
   /**
-   * @param {SpeechService} speechService
-   * @param {ScoringService} scoringService
-   * @param {AudioProcessor} audioProcessor
-   * @param {CLIInput} cliInput
-   * @param {CLIOutput} cliOutput
+   * @param {SpeechService} speechService - Service for speech analysis.
+   * @param {ScoringService} scoringService - Service for calculating scores.
+   * @param {AudioProcessor} audioProcessor - Service for processing audio.
+   * @param {CLIInput} cliInput - CLI input interface for user interaction.
+   * @param {CLIOutput} cliOutput - CLI output interface for displaying messages.
    */
   constructor(
     private readonly speechService: SpeechService,
@@ -23,17 +23,22 @@ export class RepeatSpeechUseCase {
     private readonly cliOutput: CLIOutput,
   ) {}
 
-  /** @param originalAudioPath */
+  /**
+   * Executes the use case for speech repetition and scoring.
+   *
+   * @param {string} originalAudioPath - Path to the original audio file to be played and analyzed.
+   * @returns {Promise<void>}
+   */
   async execute(originalAudioPath: string): Promise<void> {
     do {
-      this.cliOutput.info('Слушайте оригинальный аудиофайл...')
+      this.cliOutput.info('Listen to the original audio file...')
       await this.audioProcessor.play(originalAudioPath)
 
-      this.cliOutput.info('Повторите услышанное. Запись началась...')
+      this.cliOutput.info('Repeat what you heard. Recording has started...')
       const userAudioPath = `${process.cwd()}/uploads/audio/user1/user1-recording.wav`
       await this.audioProcessor.record(userAudioPath, 5)
 
-      this.cliOutput.info('Анализируем вашу запись...')
+      this.cliOutput.info('Analyzing your recording...')
       const originalSample = await this.speechService.analyzeAudio(originalAudioPath)
       const userSample = await this.speechService.analyzeAudio(userAudioPath)
 
@@ -42,17 +47,17 @@ export class RepeatSpeechUseCase {
 
       const score = this.scoringService.calculateScore(userAudio, originAudio)
 
-      this.cliOutput.info(`Ваша оценка: ${score.getValue()} из 100`)
-      await this.audioProcessor.displayWaveformToConsole(userAudioPath)
+      this.cliOutput.info(`Your score: ${score.getValue()} out of 100`)
+      await this.audioProcessor.displayWaveformToConsole(userAudioPath, 80, 15)
 
       if (score.getValue() >= 70) {
-        this.cliOutput.success('Поздравляем! Вы успешно повторили речь.')
+        this.cliOutput.success('Congratulations! You successfully repeated the speech.')
         break
       } else {
-        const choice = this.cliInput.prompt('Попробуйте ещё раз? Выберите действие: (1) Повторить (2) Завершить: ')
+        const choice = this.cliInput.prompt('Try again? Choose an option: (1) Retry (2) Finish: ')
 
         if (choice === '2') {
-          this.cliOutput.error(new Error(''), 'Вы завершили процесс.')
+          this.cliOutput.error(new Error(''), 'You have ended the process.')
           break
         }
       }

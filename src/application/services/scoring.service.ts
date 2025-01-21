@@ -1,3 +1,5 @@
+import { windowedDTW } from '@lib/audio'
+
 import { ScoringDomainService } from '@service/ScoringDomainService'
 
 import { AudioFile } from '@value-object/AudioFile'
@@ -12,10 +14,14 @@ export class ScoringService {
    * Calculates the accuracy score based on user speech and reference text.
    *
    * @param {AudioFile} userAudio - The user's speech as a Phrase value object.
-   * @param {AudioFile} referenceAudio - The reference text as a Phrase value object.
+   * @param {AudioFile} originAudio - The user's speech as a Phrase value object.
    * @returns {Score} - The calculated score.
    */
-  calculateScore(userAudio: AudioFile, referenceAudio: AudioFile): Score {
-    return this.scoringDomainService.calculateScore(userAudio, referenceAudio)
+  calculateScore(userAudio: AudioFile, originAudio: AudioFile): Score {
+    const userSample = userAudio.getSample()
+    const originalSample = originAudio.getSample()
+    const rawScore = windowedDTW(userSample, originalSample, 256)
+    const score = this.scoringDomainService.calculateScore(rawScore)
+    return score
   }
 }
