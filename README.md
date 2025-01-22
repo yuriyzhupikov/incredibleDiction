@@ -25,7 +25,7 @@ Results may sometimes be **inaccurate**, either overestimating or underestimatin
 
 ---
 
-##📝 Notes
+## 📝 Notes
 Make sure your microphone is working properly for the best experience.
 If you encounter any issues, feel free to report them via the issue tracker.
 
